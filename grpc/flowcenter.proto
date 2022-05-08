@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.atmon.flow.center.grpc";
+option go_package = "github.com/atmom/flowcenter/grpc";
+
+package flowcenter;
+
+// Services of flow center.
+service FlowCenter {
+
+    // Flow node server poll flows from flow center.
+    // Report the current flow nodes in the current flow node server,
+    // and get the next nodes of them.
+    rpc Poll (FlowPollRequest) returns (FlowPollResponse) {}
+}
+
+// Flow poll request.
+message FlowPollRequest {
+    // Flow nodes in the current node server.
+    repeated FlowNode nodes = 4;
+}
+
+// Flow poll response.
+message FlowPollResponse {
+    // Responsed code from flow center.
+    int32 code = 1;
+
+    // Responsed message from flow center.
+    string message = 2;
+
+    // Flow node info with next node.
+    repeated FlowNode nodes = 3;
+}
+
+// Flow node task.
+message FlowNode {
+    // Flow node server IP.
+    string ip = 1;
+    
+    // Flow node server port.
+    int32 port = 2;
+    
+    // Flow node server type, values are 'Golang','Java' or 'NodeJS'.
+    string type = 3;
+
+    // Flow ID of the node.
+    string flowId = 4;
+
+    // Flow node ID of the flow.
+    string nodeId = 5;
+
+    // Next flow nodes of curren flow node.
+    // As the next node can be spreaded in multi node server,
+    // the next node is a list. Node server will find next node by some strategies.
+    repeated FlowNode next = 6; 
+}
