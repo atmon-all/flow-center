@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	configPath = flag.String("config", "", "The larval register server configuration path")
+	configPath = flag.String("config", "", "The flow center server configuration path")
 )
 
 func main() {
@@ -22,6 +22,6 @@ func main() {
 	// init log.
 	common.InitLog(c)
 
-	// start register server.
+	// start flow center server.
 	server.Start(c)
 }
