@@ -1,6 +1,6 @@
 {
     "port": 9000,
     "logger": {
-        "path": "logs/center.log"
+        "path": "logs/server.log"
     }
 }
